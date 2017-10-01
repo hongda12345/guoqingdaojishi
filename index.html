@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时</title>
+</head>
+<style>
+    .dao{
+    	width: 100%;
+    	height: 30px;
+    	background: none;
+    	text-align: center;
+    	line-height: 30px;
+    	font-size: 30px;
+    	margin: 50px auto;
+    }
+    .time{
+    	width: 220px;
+    	height: auto;
+    	background: hotpink;
+    	color: #fff;
+    	text-align: center;
+    	line-height: 50px;
+    	margin: 50px auto;
+    }
+	span{
+		width: 100px;
+		height: 50px;
+		background: none;
+		color: #fff;
+		font-size: 24px;
+		margin-right: 3px;
+		text-align: center;
+		line-height: 50px;
+		border-radius: 50%;
+	}
+	body{
+		background: #f2f2f2;
+	}
+/* //////////////////////////////////////////////////////////////////////////////////////////////// */
+	#clock{
+		width: 100px;
+		height: auto;
+		background: #ff00bb;
+	}
+
+</style>
+<body>
+	<div class="dao">国庆开学倒计时</div>
+	<div class="time">
+	<span></span>天<span></span>小时<span></span>分钟<span></span>秒
+	</div>
+<!-- /*///////////////////////////////////////////////////////////////////////////////////////////////*/ -->
+   <!--  <span id="clock">01:00:00:00</span>  
+    <input id="startB" type="button" value="start countdown!" onclick="run()">  
+    <input id="endB" type="button" value="stop countdown!" onclick="stop()">  
+    <br>  
+    <input id="diff" type="text">  
+    <input id="next" type="text">   -->
+</body>
+<script>
+	let spans=document.querySelectorAll('span');
+	fn();
+	setInterval(fn, 1000);
+	function fn(){
+	let arr=[];
+	let date=new Date('2017/10/9 00:00:00');
+	let now=new Date();
+	let cha=Math.floor((date.getTime()-now.getTime())/1000);
+	console.log(cha)
+	let day=Math.floor(cha/(60*60*24));
+	arr.push(day);
+	cha=cha%(60*60*24);
+	let hour=Math.floor(cha/(60*60));
+	arr.push(hour);
+	cha=cha%(60*60);
+	let min=Math.floor(cha/60);
+	arr.push(min);
+	cha=cha%60;
+	let sec=Math.floor(cha);
+	arr.push(sec);
+    arr.forEach((element,index)=>{
+    	spans[index].innerText=element;
+    })
+	}
+</script>
+<!-- <script>
+	let spans=document.querySelectorAll('span');
+	setInterval(fn,1000);
+	let after=new Date();
+	after.setMinutes(after.getMinutes()+3);
+	let cha=180;
+	fn();
+	function fn(){
+		let arr=[];
+		cha--;
+		let min=Math.floor(cha/60);
+		let sec=cha%60;
+		arr.push(min,sec);
+		arr.forEach((element,index)=>{
+			spans[index].innerText=element;
+		})
+	}
+</script> -->
+<!-- /*//////////////////////////////////////////////////////////////////////////////*/ -->
+<!-- <script>
+ var normalelapse = 100;  
+ var nextelapse = normalelapse;  
+ var counter;   
+ var startTime;  
+ var start = clock.innerText;   
+ var finish = "00:00:00:00";  
+ var timer = null;  
+ // 开始运行  
+function run() {  
+ startB.disabled = true;  
+ endB.disabled = false;  
+ counter = 0;  
+ // 初始化开始时间  
+startTime = new Date().valueOf();  
+ // nextelapse是定时时间, 初始时为100毫秒  
+ // 注意setInterval函数: 时间逝去nextelapse(毫秒)后, onTimer才开始执行  
+timer = window.setInterval("onTimer()", nextelapse);   
+ }  
+ // 停止运行  
+function stop() {  
+ startB.disabled = false;  
+ endB.disabled = true;  
+ window.clearTimeout(timer);  
+ }  
+ window.onload = function() {  
+ endB.disabled = true;  
+ }  
+ // 倒计时函数  
+function onTimer()  
+ {  
+ if (start == finish)  
+ {  
+ window.clearInterval(timer);  
+ alert("time is up!");  
+ return;  
+ }  
+ var hms = new String(start).split(":");  
+ var ms = new Number(hms[3]);  
+ var s = new Number(hms[2]);  
+ var m = new Number(hms[1]);  
+ var h = new Number(hms[0]);  
+ ms -= 10;  
+ if (ms < 0)  
+ {  
+ ms = 90;  
+ s -= 1;  
+ if (s < 0)  
+ {  
+     s = 59;  
+     m -= 1;  
+ }  
+ if (m < 0)  
+ {  
+     m = 59;  
+     h -= 1;  
+ }  
+ }  
+ var ms = ms < 10 ? ("0" + ms) : ms;  
+ var ss = s < 10 ? ("0" + s) : s;  
+ var sm = m < 10 ? ("0" + m) : m;  
+ var sh = h < 10 ? ("0" + h) : h;  
+ start = sh + ":" + sm + ":" + ss + ":" + ms;  
+ clock.innerText = start;  
+ // 清除上一次的定时器  
+window.clearInterval(timer);  
+ // 自校验系统时间得到时间差, 并由此得到下次所启动的新定时器的时间nextelapse  
+ counter++;   
+ var counterSecs = counter * 100;  
+ var elapseSecs = new Date().valueOf() - startTime;  
+ var diffSecs = counterSecs - elapseSecs;  
+ nextelapse = normalelapse + diffSecs;  
+ diff.value = counterSecs + "-" + elapseSecs + "=" + diffSecs;  
+ next.value = "nextelapse = " + nextelapse;  
+ if (nextelapse < 0) nextelapse = 0;  
+ // 启动新的定时器  
+timer = window.setInterval("onTimer()", nextelapse);   
+ }  
+</script> -->
+</html>
